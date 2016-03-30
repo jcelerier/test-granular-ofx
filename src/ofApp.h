@@ -110,12 +110,13 @@ struct GrainPlayer
                 }
             }
 
-            std::uniform_real_distribution<> dist(0, 1);
+            std::uniform_real_distribution<> dist(0.1, 0.9);
             auto m1 = dist(e2);
             auto m2 = dist(e2);
             auto min = std::min(m1, m2);
             auto max = std::max(m1, m2);
             std::uniform_real_distribution<> pos_dist(min, max);
+
 
             pl.stretch->setLoopStart(min);
             pl.stretch->setLoopEnd(max);

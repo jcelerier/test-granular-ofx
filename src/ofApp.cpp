@@ -18,9 +18,9 @@ void ofApp::setup(){
 
     ofSetFrameRate(30);
 
-    viola.sample.load("/home/jcelerier/bosch/audio/SFX/Vielle-1-mono.wav");
+    viola.sample.load("/Users/grapholine/bosch-2/audio/SFX/Vielle-1-mono.wav");
     viola.stretch = new maxiTimePitchStretch<grainPlayerWin, maxiSample>(&viola.sample);
-    guitar.sample.load("/home/jcelerier/bosch/audio/SFX/Guitar-1-mono.wav");
+    guitar.sample.load("/Users/grapholine/bosch-2/audio/SFX/Guitar-1-mono.wav");
     guitar.stretch = new maxiTimePitchStretch<grainPlayerWin, maxiSample>(&guitar.sample);
 
     sampleRate 	= 44100; /* Sampling Rate */
@@ -71,6 +71,7 @@ void ofApp::audioOut(float * output, int bufferSize, int nChannels) {
 
     for(GrainPlayer& player : players)
     {
+
         float rand_ratio = randFloat(-0.01, 0.01) * player.randomPercent;
         for (int i = 0; i < bufferSize; i++){
 
@@ -82,14 +83,14 @@ void ofApp::audioOut(float * output, int bufferSize, int nChannels) {
                        player.posMod);
 
             // Filter : 0 -> 1
-            wave = player.lowPass.lopass(wave, player.filter);
-            wave = player.highPass.hipass(wave, 0.3);
-            wave = player.highPass2.hipass(wave, 0.7);
+            //wave = player.lowPass.lopass(wave, player.filter);
+            //wave = player.highPass.hipass(wave, 0.3);
+            //wave = player.highPass2.hipass(wave, 0.7);
 
             //play result
             mymix.stereo(wave, outputs, 0.5);
-            output[i*nChannels    ] += 1.5 * player.fadeCoeff * outputs[0];
-            output[i*nChannels + 1] += 1.5 * player.fadeCoeff * outputs[1];
+            output[i*nChannels    ] += 4 * player.fadeCoeff * outputs[0];
+            output[i*nChannels + 1] += 4 * player.fadeCoeff * outputs[1];
 
         }
     }
